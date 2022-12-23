@@ -18,6 +18,14 @@ void get_home_path(char* home_path) {
     strcat(home_path, "/c-blog");
 }
 
+/*
+ * Folders needed for storing data are not
+ * created by default.
+ * Currently it's only
+ * {home_directory}/c-blog/posts
+ *
+ * TODO: Automatically create persistance folders 
+ */
 void store_post(Post post) {
     char id_string[7];
     sprintf(id_string, "%ld", post.id);
