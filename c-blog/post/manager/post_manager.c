@@ -1,10 +1,14 @@
+#include "../../persistance/persistance.h"
 #include "post_manager.h"
 #include <time.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
 void create_post() {
     Post post = ask_for_post_info();
+    post.id = generate_id();
+    store_post(post);
 }
 
 Post ask_for_post_info() {
