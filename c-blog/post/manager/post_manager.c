@@ -23,5 +23,5 @@ Post ask_for_post_info() {
 }
 
 long generate_id() {
-    return rand() * pow(10, 6);
+    return rand() % 1000000;
 }
