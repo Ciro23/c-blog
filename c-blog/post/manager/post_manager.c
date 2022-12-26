@@ -15,13 +15,13 @@ Post ask_for_post_info() {
     Post post;
     
     printf("What's your username?\n");
-    scanf("%s", post.author);
+    fgets(post.author, SIZE_OF_AUTHOR, stdin);
     
     printf("What's the title?\n");
-    scanf("%s", post.title);
+    fgets(post.title, SIZE_OF_TITLE, stdin);
     
     printf("Write the body\n");
-    scanf("%s", post.body);
+    fgets(post.body, SIZE_OF_BODY, stdin);
     
     return post;
 }
