@@ -14,27 +14,11 @@ void display_post(Post post) {
 }
 
 void create_post() {
-    Post post = ask_for_post_info();
+    Post post = read_post(stdin, 1);
     post.id = generate_id();
     store_post(post);
     display_post(post);
 }
 
-Post ask_for_post_info() {
-    Post post;
-    
-    printf("What's your username?\n");
-    fgets(post.author, SIZE_OF_AUTHOR, stdin);
-    
-    printf("What's the title?\n");
-    fgets(post.title, SIZE_OF_TITLE, stdin);
-    
-    printf("Write the body\n");
-    fgets(post.body, SIZE_OF_BODY, stdin);
-    
-    return post;
-}
-
-long generate_id() {
     return rand() % 1000000;
 }

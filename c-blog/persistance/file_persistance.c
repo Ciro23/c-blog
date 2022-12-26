@@ -60,3 +60,24 @@ void store_post(Post post) {
 
     fclose(file);
 }
+
+Post read_post(FILE* file, int show_user_messages) {
+    Post post;
+    
+    if (show_user_messages) {
+        printf("What's your username?\n");
+    }
+    fgets(post.author, SIZE_OF_AUTHOR, file);
+    
+    if (show_user_messages) {
+        printf("What's the title?\n");
+    }
+    fgets(post.title, SIZE_OF_TITLE, file);
+    
+    if (show_user_messages) {
+        printf("Write the body\n");
+    }
+    fgets(post.body, SIZE_OF_BODY, file);
+    
+    return post;
+}
