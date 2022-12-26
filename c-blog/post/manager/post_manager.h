@@ -8,7 +8,6 @@ void display_post(Post post);
 
 void create_post(void);
 
-
-long generate_id(void);
+static long generate_id(void);
 
 #endif /* post_h */

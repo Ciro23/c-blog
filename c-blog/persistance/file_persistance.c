@@ -7,24 +7,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void get_home_path(char* home_path) {
-    const char *homedir;
-
-    if ((homedir = getenv("HOME")) == NULL) {
-        homedir = getpwuid(getuid())->pw_dir;
-    }
-    
-    strcpy(home_path, homedir);
-    strcat(home_path, "/c-blog");
-}
-
-void write_post_information(FILE* file, Post post) {
-    fprintf(file, "%ld\n", post.id);
-    fprintf(file, "%s\n", post.author);
-    fprintf(file, "%s\n", post.title);
-    fprintf(file, "%s\n", post.body);
-}
-
 /*
  * Folders needed for storing data are not
  * created by default.
@@ -80,4 +62,22 @@ Post read_post(FILE* file, int show_user_messages) {
     fgets(post.body, SIZE_OF_BODY, file);
     
     return post;
+}
+
+static void get_home_path(char* home_path) {
+    const char *homedir;
+
+    if ((homedir = getenv("HOME")) == NULL) {
+        homedir = getpwuid(getuid())->pw_dir;
+    }
+    
+    strcpy(home_path, homedir);
+    strcat(home_path, "/c-blog");
+}
+
+static void write_post_information(FILE* file, Post post) {
+    fprintf(file, "%ld\n", post.id);
+    fprintf(file, "%s\n", post.author);
+    fprintf(file, "%s\n", post.title);
+    fprintf(file, "%s\n", post.body);
 }
