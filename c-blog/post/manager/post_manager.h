@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include "../Post.h"
 
+void display_post(Post post);
+
 void create_post(void);
 
 Post ask_for_post_info(void);
