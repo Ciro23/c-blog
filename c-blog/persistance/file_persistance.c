@@ -1,4 +1,4 @@
-#include "persistance.h"
+#include "file_persistance.h"
 #include "../post/Post.h"
 #include <sys/types.h>
 #include <pwd.h>
@@ -41,23 +41,54 @@ void store_post(Post post) {
     fclose(file);
 }
 
-Post read_post(FILE* file, int show_user_messages) {
+Post read_post_from_file(FILE* file, int show_user_messages) {
     Post post;
+    
+    if (!show_user_messages) {
+        // Long required 6 bytes, remaining ones
+        // are for "\n"
+        char post_id_string[8];
+        fgets(post_id_string, sizeof(post_id_string), file);
+        post.id = atol(post_id_string);
+    }
     
     if (show_user_messages) {
         printf("What's your username?\n");
     }
     fgets(post.author, SIZE_OF_AUTHOR, file);
+    post.author[strcspn(post.author, "\n")] = '\0';
     
     if (show_user_messages) {
         printf("What's the title?\n");
     }
     fgets(post.title, SIZE_OF_TITLE, file);
+    post.title[strcspn(post.title, "\n")] = '\0';
     
     if (show_user_messages) {
         printf("Write the body\n");
     }
     fgets(post.body, SIZE_OF_BODY, file);
+    post.body[strcspn(post.body, "\n")] = '\0';
     
+    return post;
+}
+
+Post read_post(long id) {
+    char id_string[7];
+    sprintf(id_string, "%ld", id);
+    
+    char post_path[PATH_MAX] = {"\0"};
+    get_post_path(id_string, post_path);
+    
+    FILE* file = fopen(post_path, "r");
+    
+    if (file == NULL) {
+        // TODO: manage error for reading from file
+    }
+    
+    Post post = read_post_from_file(file, 0);
+    
+    fclose(file);
+
     return post;
 }

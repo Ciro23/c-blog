@@ -26,5 +26,14 @@ void call_selected_feature(int feature) {
         case 1:
             create_post();
             break;
+            
+        case 3: {
+            long id;
+            printf("Enter post id: ");
+            scanf("%li", &id);
+            
+            Post post = get_post_from_id(id);
+            display_post(post);
+        }
     }
 }

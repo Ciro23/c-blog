@@ -6,6 +6,6 @@
 
 void store_post(Post post);
 
-Post read_post(FILE* file, int show_user_messages);
+Post read_post(long id);
 
 #endif /* persistance_h */
