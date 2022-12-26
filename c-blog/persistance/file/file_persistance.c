@@ -1,5 +1,5 @@
 #include "file_persistance.h"
-#include "../post/Post.h"
+#include "../../post/Post.h"
 #include <sys/types.h>
 #include <pwd.h>
 #include <limits.h>
@@ -26,7 +26,7 @@ void store_post(Post post) {
     char id_string[7];
     sprintf(id_string, "%ld", post.id);
     
-    char post_path[PATH_MAX];
+    char post_path[PATH_MAX] = {"\0"};
     get_post_path(id_string, post_path);
     
     FILE* file = fopen(post_path, "w");
