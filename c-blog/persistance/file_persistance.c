@@ -18,13 +18,20 @@ void get_home_path(char* home_path) {
     strcat(home_path, "/c-blog");
 }
 
+void write_post_information(FILE* file, Post post) {
+    fprintf(file, "%ld\n", post.id);
+    fprintf(file, "%s\n", post.author);
+    fprintf(file, "%s\n", post.title);
+    fprintf(file, "%s\n", post.body);
+}
+
 /*
  * Folders needed for storing data are not
  * created by default.
  * Currently it's only
  * {home_directory}/c-blog/posts
  *
- * TODO: Automatically create persistance folders 
+ * TODO: Automatically create persistance folders
  */
 void store_post(Post post) {
     char id_string[7];
@@ -49,14 +56,7 @@ void store_post(Post post) {
         return;
     }
     
-    fprintf(file, "%ld", post.id);
-    fprintf(file, "%s", "\n");
-    fprintf(file, "%s", post.author);
-    fprintf(file, "%s", "\n");
-    fprintf(file, "%s", post.title);
-    fprintf(file, "%s", "\n");
-    fprintf(file, "%s", post.body);
-    fprintf(file, "%s", "\n");
+    write_post_information(file, post);
 
     fclose(file);
 }
