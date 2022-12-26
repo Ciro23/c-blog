@@ -5,7 +5,7 @@
 #include <limits.h>
 #include <string.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include "paths.h"
 
 /*
  * Folders needed for storing data are not
@@ -62,17 +62,6 @@ Post read_post(FILE* file, int show_user_messages) {
     fgets(post.body, SIZE_OF_BODY, file);
     
     return post;
-}
-
-static void get_home_path(char* home_path) {
-    const char *homedir;
-
-    if ((homedir = getenv("HOME")) == NULL) {
-        homedir = getpwuid(getuid())->pw_dir;
-    }
-    
-    strcpy(home_path, homedir);
-    strcat(home_path, "/c-blog");
 }
 
 static void write_post_information(FILE* file, Post post) {
