@@ -26,17 +26,8 @@ void store_post(Post post) {
     char id_string[7];
     sprintf(id_string, "%ld", post.id);
     
-    char* file_extension = ".txt";
-    char* posts_path = "/posts/";
-    
-    char home_path[PATH_MAX];
-    get_home_path(home_path);
-    
     char post_path[PATH_MAX];
-    strcat(post_path, home_path);
-    strcat(post_path, posts_path);
-    strcat(post_path, id_string);
-    strcat(post_path, file_extension);
+    get_post_path(id_string, post_path);
     
     FILE* file = fopen(post_path, "w");
     
