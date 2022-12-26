@@ -7,6 +7,13 @@
 #include <stdlib.h>
 #include "paths.h"
 
+static void write_post_information(FILE* file, Post post) {
+    fprintf(file, "%ld\n", post.id);
+    fprintf(file, "%s\n", post.author);
+    fprintf(file, "%s\n", post.title);
+    fprintf(file, "%s\n", post.body);
+}
+
 /*
  * Folders needed for storing data are not
  * created by default.
@@ -62,11 +69,4 @@ Post read_post(FILE* file, int show_user_messages) {
     fgets(post.body, SIZE_OF_BODY, file);
     
     return post;
-}
-
-static void write_post_information(FILE* file, Post post) {
-    fprintf(file, "%ld\n", post.id);
-    fprintf(file, "%s\n", post.author);
-    fprintf(file, "%s\n", post.title);
-    fprintf(file, "%s\n", post.body);
 }

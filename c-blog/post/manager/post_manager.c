@@ -20,6 +20,6 @@ void create_post() {
     display_post(post);
 }
 
-static long generate_id() {
+long generate_id() {
     return rand() % 1000000;
 }

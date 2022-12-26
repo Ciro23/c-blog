@@ -8,6 +8,4 @@ void store_post(Post post);
 
 Post read_post(FILE* file, int show_user_messages);
 
-static void write_post_information(FILE* file, Post post);
-
 #endif /* persistance_h */
