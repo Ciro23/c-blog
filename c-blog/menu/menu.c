@@ -34,6 +34,10 @@ void call_selected_feature(int feature) {
             
             Post post = get_post_from_id(id);
             display_post(post);
+            break;
         }
+
+        default:
+            printf("Unknown choice");
     }
 }
