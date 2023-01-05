@@ -6,4 +6,6 @@
 
 Post read_post_from_file(FILE* file, int show_user_messages);
 
+Comment read_comment_from_file(FILE* file, int show_user_messages);
+
 #endif /* file_persistence_h */

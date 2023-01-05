@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "../post/manager/post_manager.h"
+#include "../comment/manager/comment_manager.h"
 
 void display_choices() {
     printf("==============================\n");
@@ -25,6 +26,10 @@ void call_selected_feature(int feature) {
     switch (feature) {
         case 1:
             create_post();
+            break;
+
+        case 2:
+            add_comment();
             break;
             
         case 3: {
