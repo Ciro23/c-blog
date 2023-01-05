@@ -4,12 +4,16 @@
 #include <pwd.h>
 #include <unistd.h>
 #include <limits.h>
+#include <stdio.h>
 
 /*
  * Given file_name (extension exluded), its full
  * path is saved inside post_path
  */
-void get_post_path(char* file_name, char* post_path) {
+void get_post_path(long id, char* post_path) {
+    char file_name[7];
+    sprintf(file_name, "%ld", id);
+
     char* file_extension = ".txt";
     char* posts_path = "/posts/";
     

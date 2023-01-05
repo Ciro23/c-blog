@@ -18,11 +18,8 @@ static void write_post_information(FILE* file, Post post) {
  * {home_directory}/c-blog/posts
  */
 void store_post(Post post) {
-    char id_string[7];
-    sprintf(id_string, "%ld", post.id);
-    
     char post_path[PATH_MAX] = {"\0"};
-    get_post_path(id_string, post_path);
+    get_post_path(post.id, post_path);
     
     FILE* file = fopen(post_path, "w");
     
