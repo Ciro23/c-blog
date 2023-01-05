@@ -5,7 +5,7 @@
 
 #define SIZE_OF_AUTHOR 32
 #define SIZE_OF_TITLE 128
-#define SIZE_OF_BODY 1048576
+#define SIZE_OF_BODY 256
 
 typedef struct {
     long id;
