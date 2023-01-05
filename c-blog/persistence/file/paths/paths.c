@@ -24,7 +24,7 @@ void get_post_path(char* file_name, char* post_path) {
 
 /*
  * Eg. /Users/ciro23 on mac,
- * C:\users\ciro23 on windows...
+ * /users/ciro23 on linux
  */
 void get_home_path(char* home_path) {
     const char *homedir;
