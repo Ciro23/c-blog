@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <pwd.h>
+#include <unistd.h>
 #include <limits.h>
 
 /*
