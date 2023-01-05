@@ -1,7 +1,6 @@
 #ifndef file_persistance_h
 #define file_persistance_h
 
-#include <stdio.h>
 #include "../../post/Post.h"
 #include "persistance.h"
 
