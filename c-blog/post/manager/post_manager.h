@@ -12,4 +12,4 @@ Post get_post_from_id(long id);
 
 long generate_id(void);
 
-#endif /* post_h */
+#endif /* post_manager_h */

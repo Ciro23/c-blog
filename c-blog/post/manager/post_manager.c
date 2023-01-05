@@ -1,6 +1,5 @@
 #include "../../persistance/file/file_persistance.h"
 #include "post_manager.h"
-#include <time.h>
 #include <stdlib.h>
 
 void display_post(Post post) {

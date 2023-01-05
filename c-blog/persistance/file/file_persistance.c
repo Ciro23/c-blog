@@ -1,7 +1,4 @@
 #include "file_persistance.h"
-#include "../../post/Post.h"
-#include <sys/types.h>
-#include <pwd.h>
 #include <limits.h>
 #include <string.h>
 #include <stdlib.h>
