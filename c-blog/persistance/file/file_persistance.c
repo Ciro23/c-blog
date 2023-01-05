@@ -17,7 +17,7 @@ static void write_post_information(FILE* file, Post post) {
  * Currently it's only
  * {home_directory}/c-blog/posts
  *
- * TODO: Automatically create persistance folders
+ * TODO: Automatically create persistence folders
  */
 void store_post(Post post) {
     char id_string[7];
