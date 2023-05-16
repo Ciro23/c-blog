@@ -3,7 +3,7 @@ c is so loved, and difficult...
 
 ### Features
 - Create a post
-- Add a comment to a post (incoming)
+- Add a comment to a post (there's still no possibility to show all comments of a post)
 - View a post
 - List all posts (incoming)
 
