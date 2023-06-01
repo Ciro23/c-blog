@@ -5,6 +5,8 @@
 #include "paths.h"
 
 static void write_post_information(FILE* file, Post post) {
+    // TODO: it's not actually needed to store the id twice!
+    // it's already in the file name!
     fprintf(file, "%ld\n", post.id);
     fprintf(file, "%s\n", post.author);
     fprintf(file, "%s\n", post.title);
