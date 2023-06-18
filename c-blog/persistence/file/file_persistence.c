@@ -110,17 +110,19 @@ void store_comment(Comment comment) {
     fclose(file);
 }
 
-void read_post_comments(long post_id, Comment* comments) {
+void read_post_comments(long post_id, Comment* comments, size_t number_of_coments) {
     char comments_path[PATH_MAX] = {"\0"};
-    get_post_path(post_id, comments_path);
+    get_comments_path(post_id, comments_path);
 
-    FILE* file = fopen(comments_path, "r");
+    FILE *file = fopen(comments_path, "r");
 
     if (file == NULL) {
         // TODO: manage error for reading from file
     }
 
-    read_comment_from_file(file, 0);
+    for (int i = 0; i < number_of_coments; i++) {
+        comments[i] = read_comment_from_file(file, 0);
+    }
 
     fclose(file);
 }

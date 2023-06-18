@@ -12,6 +12,6 @@ void store_comment(Comment comment);
 
 int get_number_of_comments(long post_id);
 
-void read_post_comments(long post_id, Comment* comments);
+void read_post_comments(long post_id, Comment* comments, size_t number_of_comments);
 
 #endif /* persistence_h */

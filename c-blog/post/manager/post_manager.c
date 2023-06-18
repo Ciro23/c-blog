@@ -4,11 +4,12 @@
 
 void display_post(Post post) {
     printf("========================================\n");
+    printf("Post\n");
+    printf("========================================\n");
     printf("Id: %li\n", post.id);
     printf("Author: %s\n", post.author);
     printf("Title: %s\n\n", post.title);
     printf("%s\n", post.body);
-    printf("========================================\n");
 }
 
 void create_post() {

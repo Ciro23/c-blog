@@ -38,7 +38,14 @@ void call_selected_feature(int feature) {
             scanf("%li", &id);
             
             Post post = get_post_from_id(id);
+
+            int max_number_of_comments = 100;
+            Comment comments[max_number_of_comments];
+            read_comments(id, comments, max_number_of_comments);
+
             display_post(post);
+            display_comments(comments, max_number_of_comments);
+
             break;
         }
 
