@@ -7,7 +7,7 @@
 #include <stdio.h>
 
 /*
- * Given file_name (extension exluded), its full
+ * Given file_name (extension excluded), its full
  * path is saved inside post_path
  */
 void get_post_path(long id, char* post_path) {
