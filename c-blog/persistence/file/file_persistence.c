@@ -1,20 +1,27 @@
 #include "file_persistence.h"
 #include <limits.h>
-#include <string.h>
 #include <stdlib.h>
 #include "paths.h"
+#include "../../utils/utils.h"
 
+/**
+ * The post information is stored in sequential lines, in the
+ * order: id, author, title, body.
+ */
 static void write_post_information(FILE* file, Post post) {
-    // TODO: it's not actually needed to store the id twice!
-    // it's already in the file name!
     fprintf(file, "%ld\n", post.id);
     fprintf(file, "%s\n", post.author);
     fprintf(file, "%s\n", post.title);
     fprintf(file, "%s\n", post.body);
 }
 
+/**
+ * The comment information is stored in sequential lines, in the
+ * order: id, post id, author, body.
+ */
 static void write_comment_information(FILE* file, Comment comment) {
     fprintf(file, "%ld\n", comment.id);
+    fprintf(file, "%ld\n", comment.post_id);
     fprintf(file, "%s\n", comment.author);
     fprintf(file, "%s\n", comment.body);
 }
@@ -38,7 +45,6 @@ void store_post(const Post post) {
     }
     
     write_post_information(file, post);
-
     fclose(file);
 }
 
@@ -51,48 +57,38 @@ Post read_post(const long id) {
     if (file == NULL) {
         // TODO: manage error for reading from file
     }
-    
-    Post post = read_post_from_file(file, 0);
-    
+
+    const Post post = read_post_from_file(file, 0);
     fclose(file);
 
     return post;
 }
 
-Post read_post_from_file(FILE* file, const int reading_from_cli) {
+Post read_post_from_file(FILE* file, const int print_output_messages) {
     Post post;
 
     // When it's been read from cli, the id is yet to be generated.
-    if (reading_from_cli) {
+    if (print_output_messages) {
         post.id = 0;
     } else {
-        // Long requires 6 bytes, remaining ones
-        // are for "\n".
-        char post_id_string[8];
-        fgets(post_id_string, sizeof(post_id_string), file);
-        post.id = atol(post_id_string);
+        read_long(&post.id, file);
     }
     
-    if (reading_from_cli) {
+    if (print_output_messages) {
         printf("What's your username?\n");
     }
-    fgets(post.author, SIZE_OF_AUTHOR, file);
-    
-    // Replace "\n" with end of string characters
-    post.author[strcspn(post.author, "\n")] = '\0';
-    
-    if (reading_from_cli) {
+    read_string(post.author, sizeof post.author, file);
+
+    if (print_output_messages) {
         printf("What's the title?\n");
     }
-    fgets(post.title, SIZE_OF_TITLE, file);
-    post.title[strcspn(post.title, "\n")] = '\0';
-    
-    if (reading_from_cli) {
-        printf("Write the body\n");
+    read_string(post.title, sizeof post.title, file);
+
+    if (print_output_messages) {
+        printf("Write the body:\n");
     }
-    fgets(post.body, SIZE_OF_BODY, file);
-    post.body[strcspn(post.body, "\n")] = '\0';
-    
+    read_string(post.body, sizeof post.body, file);
+
     return post;
 }
 
@@ -108,11 +104,10 @@ void store_comment(const Comment comment) {
     }
 
     write_comment_information(file, comment);
-
     fclose(file);
 }
 
-void read_post_comments(long post_id, Comment* comments, size_t number_of_coments) {
+void read_post_comments(const long post_id, Comment* comments, size_t number_of_coments) {
     char comments_path[PATH_MAX] = {"\0"};
     get_comments_path(post_id, comments_path);
 
@@ -129,40 +124,30 @@ void read_post_comments(long post_id, Comment* comments, size_t number_of_coment
     fclose(file);
 }
 
-Comment read_comment_from_file(FILE* file, const int reading_from_cli) {
+Comment read_comment_from_file(FILE* file, const int print_output_messages) {
     Comment comment;
 
     // When it's been read from cli, the id is yet to be generated.
-    if (reading_from_cli) {
+    if (print_output_messages) {
         comment.id = 0;
     } else {
-        // Long requires 6 bytes, remaining ones
-        // are for "\n".
-        char comment_id_string[8];
-        fgets(comment_id_string, sizeof(comment_id_string), file);
-        comment.id = atol(comment_id_string);
+        read_long(&comment.id, file);
     }
 
-    if (reading_from_cli) {
+    if (print_output_messages) {
         printf("What's the post id?\n");
     }
-    fscanf(file, "%li", &comment.post_id);
+    read_long(&comment.post_id, file);
 
-    fflush(file);
-
-    if (reading_from_cli) {
+    if (print_output_messages) {
         printf("What's your username?\n");
     }
-    fgets(comment.author, SIZE_OF_AUTHOR, file);
+    read_string(comment.author, sizeof comment.author, file);
 
-    // Replaces "\n" with end of string characters.
-    comment.author[strcspn(comment.author, "\n")] = '\0';
-
-    if (reading_from_cli) {
+    if (print_output_messages) {
         printf("What's your comment?\n");
     }
-    fgets(comment.body, SIZE_OF_BODY, file);
-    comment.body[strcspn(comment.body, "\n")] = '\0';
+    read_string(comment.body, sizeof comment.body, file);
 
     return comment;
 }

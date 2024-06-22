@@ -26,4 +26,4 @@ add_executable(
         c-blog/post/manager/post_manager.h
         c-blog/post/Post.h
         c-blog/main.c
-        c-blog/comment/Comment.h c-blog/comment/manager/comment_manager.c c-blog/comment/manager/comment_manager.h c-blog/utils/numbers.c c-blog/utils/numbers.h)
+        c-blog/comment/Comment.h c-blog/comment/manager/comment_manager.c c-blog/comment/manager/comment_manager.h c-blog/utils/utils.c c-blog/utils/utils.h)

@@ -1,6 +1,6 @@
 #include "../../persistence/file/file_persistence.h"
 #include "post_manager.h"
-#include "../../utils/numbers.h"
+#include "../../utils/utils.h"
 
 void display_post(Post post) {
     printf("========================================\n");

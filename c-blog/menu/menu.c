@@ -1,6 +1,8 @@
 #include "menu.h"
+
 #include "../post/manager/post_manager.h"
 #include "../comment/manager/comment_manager.h"
+#include "../utils/utils.h"
 
 void display_choices() {
     printf("==============================\n");
@@ -14,13 +16,8 @@ void display_choices() {
     
     int choice;
     printf("Enter choice: ");
-    scanf("%d", &choice);
-    
-    // Flush is necessary because the end of line character
-    // remains in buffer, automatically "skipping" next input
-    // request
-    fflush(stdin);
-    
+    read_integer(&choice, stdin);
+
     call_selected_feature(choice);
 }
 
@@ -37,15 +34,16 @@ void call_selected_feature(const int feature) {
         case 3: {
             long id;
             printf("Enter post id: ");
-            scanf("%li", &id);
+            read_long(&id, stdin);
 
-            const int max_number_of_comments = 100;
-            Comment comments[max_number_of_comments];
-            read_comments(id, comments, max_number_of_comments);
+            // TODO: totaly broken feature
+            // const int max_number_of_comments = 100;
+            // Comment comments[max_number_of_comments];
+            // read_comments(id, comments, max_number_of_comments);
 
             const Post post = get_post_from_id(id);
             display_post(post);
-            display_comments(comments, max_number_of_comments);
+            // display_comments(comments, max_number_of_comments);
 
             break;
         }

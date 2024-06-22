@@ -1,8 +1,6 @@
 #ifndef post_h
 #define post_h
 
-#include <stdio.h>
-
 #define SIZE_OF_AUTHOR 32
 #define SIZE_OF_TITLE 128
 #define SIZE_OF_BODY 256
