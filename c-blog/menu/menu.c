@@ -1,11 +1,14 @@
 #include "menu.h"
 
+#include <stdlib.h>
+
 #include "../post/manager/post_manager.h"
 #include "../comment/manager/comment_manager.h"
 #include "../utils/utils.h"
 
-void display_choices() {
+int display_choices() {
     printf("==============================\n");
+    printf("0. Exit and close program\n");
     printf("1. Create post\n");
     printf("2. Add comment\n");
     printf("3. View post\n");
@@ -19,10 +22,19 @@ void display_choices() {
     read_integer(&choice, stdin);
 
     call_selected_feature(choice);
+
+    if (choice == 0) {
+        return 1;
+    }
+    return 0;
 }
 
 void call_selected_feature(const int feature) {
     switch (feature) {
+        case 0:
+            printf("Bye!");
+            break;
+
         case 1:
             create_post();
             break;

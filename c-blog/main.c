@@ -6,6 +6,8 @@
 int main(int argc, const char * argv[]) {
     srand(time(NULL));
 
-    display_choices();
-    return 0;
+    int should_exit;
+    do {
+        should_exit = display_choices();
+    } while (should_exit != 1);
 }
