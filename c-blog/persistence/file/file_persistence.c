@@ -19,14 +19,14 @@ static void write_comment_information(FILE* file, Comment comment) {
     fprintf(file, "%s\n", comment.body);
 }
 
-/*
+/**
  * Folders needed for storing data are not
  * created by default.
  * TODO: automatically create required paths:
  * {home_directory}/c-blog/posts
  * and {home_directory}/c-blog/comments
  */
-void store_post(Post post) {
+void store_post(const Post post) {
     char post_path[PATH_MAX] = {"\0"};
     get_post_path(post.id, post_path);
     
@@ -42,7 +42,7 @@ void store_post(Post post) {
     fclose(file);
 }
 
-Post read_post(long id) {
+Post read_post(const long id) {
     char post_path[PATH_MAX] = {"\0"};
     get_post_path(id, post_path);
     
@@ -59,14 +59,15 @@ Post read_post(long id) {
     return post;
 }
 
-Post read_post_from_file(FILE* file, int reading_from_cli) {
+Post read_post_from_file(FILE* file, const int reading_from_cli) {
     Post post;
 
-    // When it's been read from cli, the id does
-    // not exist yet
-    if (!reading_from_cli) {
+    // When it's been read from cli, the id is yet to be generated.
+    if (reading_from_cli) {
+        post.id = 0;
+    } else {
         // Long requires 6 bytes, remaining ones
-        // are for "\n"
+        // are for "\n".
         char post_id_string[8];
         fgets(post_id_string, sizeof(post_id_string), file);
         post.id = atol(post_id_string);
@@ -95,7 +96,7 @@ Post read_post_from_file(FILE* file, int reading_from_cli) {
     return post;
 }
 
-void store_comment(Comment comment) {
+void store_comment(const Comment comment) {
     char comments_path[PATH_MAX] = {"\0"};
     get_comments_path(comment.post_id, comments_path);
 
@@ -128,14 +129,15 @@ void read_post_comments(long post_id, Comment* comments, size_t number_of_coment
     fclose(file);
 }
 
-Comment read_comment_from_file(FILE* file, int reading_from_cli) {
+Comment read_comment_from_file(FILE* file, const int reading_from_cli) {
     Comment comment;
 
-    // When it's been read from cli, the id does
-    // not exist yet
-    if (!reading_from_cli) {
+    // When it's been read from cli, the id is yet to be generated.
+    if (reading_from_cli) {
+        comment.id = 0;
+    } else {
         // Long requires 6 bytes, remaining ones
-        // are for "\n"
+        // are for "\n".
         char comment_id_string[8];
         fgets(comment_id_string, sizeof(comment_id_string), file);
         comment.id = atol(comment_id_string);
@@ -153,7 +155,7 @@ Comment read_comment_from_file(FILE* file, int reading_from_cli) {
     }
     fgets(comment.author, SIZE_OF_AUTHOR, file);
 
-    // Replace "\n" with end of string characters
+    // Replaces "\n" with end of string characters.
     comment.author[strcspn(comment.author, "\n")] = '\0';
 
     if (reading_from_cli) {

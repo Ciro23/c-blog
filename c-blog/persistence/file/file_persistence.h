@@ -4,8 +4,8 @@
 #include "../../post/Post.h"
 #include "persistence.h"
 
-Post read_post_from_file(FILE* file, int show_user_messages);
+Post read_post_from_file(FILE* file, int reading_from_cli);
 
-Comment read_comment_from_file(FILE* file, int show_user_messages);
+Comment read_comment_from_file(FILE* file, int reading_from_cli);
 
 #endif /* file_persistence_h */

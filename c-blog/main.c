@@ -4,7 +4,7 @@
 #include "menu/menu.h"
 
 int main(int argc, const char * argv[]) {
-    srand((int) time(NULL));
+    srand(time(NULL));
 
     display_choices();
     return 0;

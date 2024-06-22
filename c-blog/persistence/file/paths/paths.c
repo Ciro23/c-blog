@@ -6,16 +6,16 @@
 #include <limits.h>
 #include <stdio.h>
 
-/*
+/**
  * Given file_name (extension excluded), its full
  * path is saved inside post_path
  */
-void get_post_path(long id, char* post_path) {
+void get_post_path(const long id, char* post_path) {
     char file_name[7];
     sprintf(file_name, "%ld", id);
 
-    char* file_extension = ".txt";
-    char* posts_path = "/posts/";
+    const char* file_extension = ".txt";
+    const char* posts_path = "/posts/";
     
     char home_path[PATH_MAX];
     get_home_path(home_path);
@@ -28,14 +28,14 @@ void get_post_path(long id, char* post_path) {
 
 /**
  * Given a post id, the file path containing all its
- * comments is stored inside comment_path
+ * comments are stored inside comment_path
  */
-void get_comments_path(long id, char* comment_path) {
+void get_comments_path(const long id, char* comment_path) {
     char file_name[7];
     sprintf(file_name, "%ld", id);
 
-    char* file_extension = ".txt";
-    char* comments_path = "/comments/";
+    const char* file_extension = ".txt";
+    const char* comments_path = "/comments/";
 
     char home_path[PATH_MAX];
     get_home_path(home_path);
@@ -46,9 +46,11 @@ void get_comments_path(long id, char* comment_path) {
     strcat(comment_path, file_extension);
 }
 
-/*
- * Eg. /Users/ciro23 on mac,
- * /users/ciro23 on linux
+/**
+ * Returns the path which contains all data related
+ * to this program.
+ * Eg. /Users/ciro23/c-blog on mac,
+ * /home/ciro23/c-blog on linux
  */
 void get_home_path(char* home_path) {
     const char *homedir;

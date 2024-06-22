@@ -10,11 +10,11 @@ void display_comment(Comment comment) {
     printf("%s\n", comment.body);
 }
 
-void display_comments(Comment comments[], size_t number_of_comments) {
+void display_comments(Comment comments[], const size_t number_of_comments) {
     printf("========================================\n");
     printf("Comments\n");
     for (int i = 0; i < number_of_comments; i++) {
-        Comment comment = comments[i];
+        const Comment comment = comments[i];
         display_comment(comment);
     }
 }
@@ -27,6 +27,6 @@ void add_comment() {
     display_comment(comment);
 }
 
-void read_comments(long post_id, Comment* comments, size_t number_of_comments) {
+void read_comments(const long post_id, Comment* comments, const size_t number_of_comments) {
     read_post_comments(post_id, comments, number_of_comments);
 }
