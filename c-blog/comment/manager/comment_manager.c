@@ -7,7 +7,7 @@ void display_comment(Comment comment) {
     printf("========================================\n");
     printf("Id: %li\n", comment.id);
     printf("Author: %s\n", comment.author);
-    printf("%s\n", comment.body);
+    printf("Message: %s\n", comment.body);
 }
 
 void display_comments(Comment comments[], const size_t number_of_comments) {
@@ -20,7 +20,8 @@ void display_comments(Comment comments[], const size_t number_of_comments) {
 }
 
 void add_comment() {
-    Comment comment = read_comment_from_file(stdin, 1);
+    Comment comment;
+    read_comment_from_file(stdin, &comment, 1);
     comment.id = generate_random_number();
 
     store_comment(comment);

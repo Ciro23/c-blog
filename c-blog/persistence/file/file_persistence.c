@@ -2,6 +2,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include "paths.h"
+#include "../../comment/manager/comment_manager.h"
 #include "../../utils/utils.h"
 
 /**
@@ -96,7 +97,7 @@ void store_comment(const Comment comment) {
     char comments_path[PATH_MAX] = {"\0"};
     get_comments_path(comment.post_id, comments_path);
 
-    FILE* file = fopen(comments_path, "w");
+    FILE* file = fopen(comments_path, "a");
 
     if (file == NULL) {
         // TODO: manage error for writing to file
@@ -117,37 +118,42 @@ void read_post_comments(const long post_id, Comment* comments, size_t number_of_
         // TODO: manage error for reading from file
     }
 
-    for (int i = 0; i < number_of_coments; i++) {
-        comments[i] = read_comment_from_file(file, 0);
+    Comment comment;
+    while (read_comment_from_file(file, &comment, 0)) {
+        display_comment(comment);
     }
 
     fclose(file);
 }
 
-Comment read_comment_from_file(FILE* file, const int print_output_messages) {
-    Comment comment;
-
+int read_comment_from_file(FILE* file, Comment* comment, const int print_output_messages) {
     // When it's been read from cli, the id is yet to be generated.
     if (print_output_messages) {
-        comment.id = 0;
-    } else {
-        read_long(&comment.id, file);
+        comment->id = 0;
+    } else if (read_long(&comment->id, file) != 1) {
+        return 0;
     }
 
     if (print_output_messages) {
         printf("What's the post id?\n");
     }
-    read_long(&comment.post_id, file);
+    if (read_long(&comment->post_id, file) != 1) {
+        return 0;
+    }
 
     if (print_output_messages) {
         printf("What's your username?\n");
     }
-    read_string(comment.author, sizeof comment.author, file);
+    if (read_string(comment->author, sizeof comment->author, file) != 1) {
+        return 0;
+    }
 
     if (print_output_messages) {
         printf("What's your comment?\n");
     }
-    read_string(comment.body, sizeof comment.body, file);
+    if (read_string(comment->body, sizeof comment->body, file) != 1) {
+        return 0;
+    }
 
-    return comment;
+    return 1;
 }

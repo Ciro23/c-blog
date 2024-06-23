@@ -48,14 +48,14 @@ void call_selected_feature(const int feature) {
             printf("Enter post id: ");
             read_long(&id, stdin);
 
-            // TODO: totaly broken feature
-            // const int max_number_of_comments = 100;
-            // Comment comments[max_number_of_comments];
-            // read_comments(id, comments, max_number_of_comments);
+            const int max_number_of_comments = 100;
+            Comment comments[max_number_of_comments];
 
             const Post post = get_post_from_id(id);
             display_post(post);
-            // display_comments(comments, max_number_of_comments);
+
+            read_comments(id, comments, max_number_of_comments);
+            //display_comments(comments, max_number_of_comments);
 
             break;
         }

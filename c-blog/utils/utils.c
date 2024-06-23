@@ -7,24 +7,30 @@ long generate_random_number() {
     return rand() % 1000000;
 }
 
-void read_string(char *string, const int length, FILE* file) {
-    fgets(string, length, file);
+int read_string(char *string, const int maxLength, FILE* stream) {
+    const char* result = fgets(string, maxLength, stream);
     while (*string != '\n') {
         string++;
     }
     *string = '\0';
+
+    return result != NULL;
 }
 
-void read_integer(int *integer, FILE* file) {
+int read_integer(int *integer, FILE* stream) {
     char input[20];
 
-    read_string(input, sizeof(input), file);
+    const int result = read_string(input, sizeof(input), stream);
     *integer = atoi(input);
+
+    return result;
 }
 
-void read_long(long *value, FILE* file) {
+int read_long(long *value, FILE* stream) {
     char input[30];
 
-    read_string(input, sizeof(input), file);
+    const int result = read_string(input, sizeof(input), stream);
     *value = atol(input);
+
+    return result;
 }
