@@ -3,10 +3,12 @@
 #include "../../persistence/file/file_persistence.h"
 #include <stdio.h>
 
-void display_comment(Comment* comment) {
-    printf("Id: %li\n", comment->id);
-    printf("Author: %s\n", comment->author);
-    printf("Message: %s\n", comment->body);
+void display_comment(void* comment) {
+    Comment* actual_comment = comment;
+
+    printf("Id: %li\n", actual_comment->id);
+    printf("Author (32): %s\n", actual_comment->author);
+    printf("Message (256): %s\n", actual_comment->body);
     printf("----------------------------------------\n");
 }
 
