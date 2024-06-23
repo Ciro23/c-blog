@@ -8,7 +8,7 @@
 
 int display_choices() {
     printf("##############################\n");
-    printf("# 0. Exit and close program  #\n");
+    printf("# 0. Exit                    #\n");
     printf("# 1. Create post             #\n");
     printf("# 2. Add comment             #\n");
     printf("# 3. View post               #\n");

@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-#include "../../post/Post.h"
+#include "../../post/post.h"
 #include "persistence.h"
 
 Post read_post_from_file(FILE* file, int print_output_messages);

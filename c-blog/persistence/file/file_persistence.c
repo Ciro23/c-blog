@@ -121,7 +121,7 @@ LinkedList* read_post_comments(const long post_id) {
 
     Comment comment;
     while (read_comment_from_file(file, &comment, 0)) {
-        insert_at_end(comments, &comment);
+        append(comments, &comment);
     }
 
     fclose(file);

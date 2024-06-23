@@ -19,8 +19,7 @@ typedef struct {
  */
 LinkedList* create_list(size_t dataSize);
 int is_empty(const LinkedList* list);
-void insert_at_beginning(LinkedList* list, const void* data);
-void insert_at_end(LinkedList* list, const void* data);
+void append(LinkedList* list, const void* data);
 
 /**
  * Iterates over all the list elements, executing the given

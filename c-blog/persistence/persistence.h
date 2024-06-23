@@ -1,8 +1,8 @@
 #ifndef persistence_h
 #define persistence_h
 
-#include "../post/Post.h"
-#include "../comment/Comment.h"
+#include "../post/post.h"
+#include "../comment/comment.h"
 #include "../list/linked_list.h"
 
 void store_post(Post post);

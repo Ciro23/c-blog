@@ -1,7 +1,7 @@
 #ifndef C_BLOG_COMMENT_MANAGER_H
 #define C_BLOG_COMMENT_MANAGER_H
 
-#include "../Comment.h"
+#include "../comment.h"
 #include "../list/linked_list.h"
 
 void display_comments(const LinkedList* comments);

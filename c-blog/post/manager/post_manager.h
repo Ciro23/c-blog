@@ -1,7 +1,7 @@
 #ifndef post_manager_h
 #define post_manager_h
 
-#include "../Post.h"
+#include "../post.h"
 
 void display_post(Post post);
 

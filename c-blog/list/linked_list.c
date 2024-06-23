@@ -22,23 +22,18 @@ int is_empty(const LinkedList* list) {
     return list->head == NULL;
 }
 
-void insert_at_beginning(LinkedList* list, const void* data) {
-    struct Node* newNode = create_node(data, list->dataSize);
-    newNode->next = list->head;
-    list->head = newNode;
-}
-
-void insert_at_end(LinkedList* list, const void* data) {
+void append(LinkedList* list, const void* data) {
     struct Node* newNode = create_node(data, list->dataSize);
     if (list->head == NULL) {
         list->head = newNode;
-    } else {
-        struct Node* temp = list->head;
-        while (temp->next != NULL) {
-            temp = temp->next;
-        }
-        temp->next = newNode;
+        return;
     }
+
+    struct Node* currentNode = list->head;
+    while (currentNode->next != NULL) {
+        currentNode = currentNode->next;
+    }
+    currentNode->next = newNode;
 }
 
 void traverse_list(const LinkedList* list, void (*callback)(void*)) {
@@ -51,10 +46,10 @@ void traverse_list(const LinkedList* list, void (*callback)(void*)) {
 
 void free_list(LinkedList* list) {
     while (list->head != NULL) {
-        struct Node* temp = list->head;
+        struct Node* currentNode = list->head;
         list->head = list->head->next;
-        free(temp->element);
-        free(temp);
+        free(currentNode->element);
+        free(currentNode);
     }
     free(list);
 }
