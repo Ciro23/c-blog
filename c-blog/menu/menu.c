@@ -7,15 +7,15 @@
 #include "../utils/utils.h"
 
 int display_choices() {
-    printf("==============================\n");
-    printf("0. Exit and close program\n");
-    printf("1. Create post\n");
-    printf("2. Add comment\n");
-    printf("3. View post\n");
+    printf("##############################\n");
+    printf("# 0. Exit and close program  #\n");
+    printf("# 1. Create post             #\n");
+    printf("# 2. Add comment             #\n");
+    printf("# 3. View post               #\n");
 
     // TODO: not implemented yet
     // printf("4. List of all posts\n");
-    printf("==============================\n");
+    printf("##############################\n");
     
     int choice;
     printf("Enter choice: ");
@@ -48,14 +48,14 @@ void call_selected_feature(const int feature) {
             printf("Enter post id: ");
             read_long(&id, stdin);
 
-            const int max_number_of_comments = 100;
-            Comment comments[max_number_of_comments];
-
             const Post post = get_post_from_id(id);
             display_post(post);
 
-            read_comments(id, comments, max_number_of_comments);
-            //display_comments(comments, max_number_of_comments);
+            LinkedList* comments = read_comments(id);
+            if (!is_empty(comments)) {
+                display_comments(comments);
+            }
+            free_list(comments);
 
             break;
         }

@@ -3,6 +3,7 @@
 
 #include "../post/Post.h"
 #include "../comment/Comment.h"
+#include "../list/linked_list.h"
 
 void store_post(Post post);
 
@@ -12,6 +13,6 @@ void store_comment(Comment comment);
 
 int get_number_of_comments(long post_id);
 
-void read_post_comments(long post_id, Comment* comments, size_t number_of_comments);
+LinkedList* read_post_comments(long post_id);
 
 #endif /* persistence_h */

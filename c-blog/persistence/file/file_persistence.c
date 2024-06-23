@@ -1,9 +1,9 @@
 #include "file_persistence.h"
 #include <limits.h>
-#include <stdlib.h>
 #include "paths.h"
 #include "../../comment/manager/comment_manager.h"
 #include "../../utils/utils.h"
+#include "../../list/linked_list.h"
 
 /**
  * The post information is stored in sequential lines, in the
@@ -41,7 +41,7 @@ void store_post(const Post post) {
     FILE* file = fopen(post_path, "w");
     
     if (file == NULL) {
-        // TODO: manage error for writing to file
+        perror("Error writing to filesystem to persist the post information");
         return;
     }
     
@@ -56,7 +56,7 @@ Post read_post(const long id) {
     FILE* file = fopen(post_path, "r");
     
     if (file == NULL) {
-        // TODO: manage error for reading from file
+        perror("Cannot read the post from the filesystem");
     }
 
     const Post post = read_post_from_file(file, 0);
@@ -76,17 +76,17 @@ Post read_post_from_file(FILE* file, const int print_output_messages) {
     }
     
     if (print_output_messages) {
-        printf("What's your username?\n");
+        printf("What's your username (32)?\n");
     }
     read_string(post.author, sizeof post.author, file);
 
     if (print_output_messages) {
-        printf("What's the title?\n");
+        printf("What's the title (128)?\n");
     }
     read_string(post.title, sizeof post.title, file);
 
     if (print_output_messages) {
-        printf("Write the body:\n");
+        printf("Write the body (256):\n");
     }
     read_string(post.body, sizeof post.body, file);
 
@@ -100,7 +100,7 @@ void store_comment(const Comment comment) {
     FILE* file = fopen(comments_path, "a");
 
     if (file == NULL) {
-        // TODO: manage error for writing to file
+        perror("Error writing to filesystem to persist the comment information");
         return;
     }
 
@@ -108,22 +108,24 @@ void store_comment(const Comment comment) {
     fclose(file);
 }
 
-void read_post_comments(const long post_id, Comment* comments, size_t number_of_coments) {
+LinkedList* read_post_comments(const long post_id) {
     char comments_path[PATH_MAX] = {"\0"};
     get_comments_path(post_id, comments_path);
 
     FILE *file = fopen(comments_path, "r");
+    LinkedList* comments = create_list(sizeof(Comment));
 
     if (file == NULL) {
-        // TODO: manage error for reading from file
+        return comments;
     }
 
     Comment comment;
     while (read_comment_from_file(file, &comment, 0)) {
-        display_comment(comment);
+        insert_at_end(comments, &comment);
     }
 
     fclose(file);
+    return comments;
 }
 
 int read_comment_from_file(FILE* file, Comment* comment, const int print_output_messages) {
@@ -142,14 +144,14 @@ int read_comment_from_file(FILE* file, Comment* comment, const int print_output_
     }
 
     if (print_output_messages) {
-        printf("What's your username?\n");
+        printf("What's your username (32)?\n");
     }
     if (read_string(comment->author, sizeof comment->author, file) != 1) {
         return 0;
     }
 
     if (print_output_messages) {
-        printf("What's your comment?\n");
+        printf("What's your comment (256)?\n");
     }
     if (read_string(comment->body, sizeof comment->body, file) != 1) {
         return 0;
