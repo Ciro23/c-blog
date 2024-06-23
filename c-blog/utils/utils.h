@@ -32,4 +32,6 @@ int read_integer(int *integer, FILE* stream);
  */
 int read_long(long *value, FILE* stream);
 
+void remove_file_extension(char *filename);
+
 #endif //C_BLOG_NUMBERS_H

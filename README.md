@@ -13,6 +13,8 @@ c-blog/
 1. Create a post
 2. Add a comment to a post
 3. View a post and all its comments
+4. List all posts
 
 ## Support
-It's currently supported on Unix-based systems only, and it was correctly tested on Linux and macOS.
+It's currently supported on Unix-based systems only, and it was tested on Linux and macOS.  
+This project is not perfect as it may crash sometimes :/

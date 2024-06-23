@@ -1,7 +1,6 @@
 #include "file_persistence.h"
 #include <limits.h>
 #include "paths.h"
-#include "../../comment/manager/comment_manager.h"
 #include "../../utils/utils.h"
 #include "../../list/linked_list.h"
 
@@ -59,36 +58,36 @@ Post read_post(const long id) {
         perror("Cannot read the post from the filesystem");
     }
 
-    const Post post = read_post_from_file(file, 0);
+    const Post post = read_post_from_stream(file, 0);
     fclose(file);
 
     return post;
 }
 
-Post read_post_from_file(FILE* file, const int print_output_messages) {
+Post read_post_from_stream(FILE* stream, const int print_output_messages) {
     Post post;
 
     // When it's been read from cli, the id is yet to be generated.
     if (print_output_messages) {
         post.id = 0;
     } else {
-        read_long(&post.id, file);
+        read_long(&post.id, stream);
     }
     
     if (print_output_messages) {
         printf("What's your username (32)?\n");
     }
-    read_string(post.author, sizeof post.author, file);
+    read_string(post.author, sizeof post.author, stream);
 
     if (print_output_messages) {
         printf("What's the title (128)?\n");
     }
-    read_string(post.title, sizeof post.title, file);
+    read_string(post.title, sizeof post.title, stream);
 
     if (print_output_messages) {
         printf("Write the body (256):\n");
     }
-    read_string(post.body, sizeof post.body, file);
+    read_string(post.body, sizeof post.body, stream);
 
     return post;
 }
@@ -120,7 +119,7 @@ LinkedList* read_post_comments(const long post_id) {
     }
 
     Comment comment;
-    while (read_comment_from_file(file, &comment, 0)) {
+    while (read_comment_from_stream(file, &comment, 0)) {
         append(comments, &comment);
     }
 
@@ -128,32 +127,32 @@ LinkedList* read_post_comments(const long post_id) {
     return comments;
 }
 
-int read_comment_from_file(FILE* file, Comment* comment, const int print_output_messages) {
+int read_comment_from_stream(FILE* stream, Comment* comment, const int print_output_messages) {
     // When it's been read from cli, the id is yet to be generated.
     if (print_output_messages) {
         comment->id = 0;
-    } else if (read_long(&comment->id, file) != 1) {
+    } else if (read_long(&comment->id, stream) != 1) {
         return 0;
     }
 
     if (print_output_messages) {
         printf("What's the post id?\n");
     }
-    if (read_long(&comment->post_id, file) != 1) {
+    if (read_long(&comment->post_id, stream) != 1) {
         return 0;
     }
 
     if (print_output_messages) {
         printf("What's your username (32)?\n");
     }
-    if (read_string(comment->author, sizeof comment->author, file) != 1) {
+    if (read_string(comment->author, sizeof comment->author, stream) != 1) {
         return 0;
     }
 
     if (print_output_messages) {
         printf("What's your comment (256)?\n");
     }
-    if (read_string(comment->body, sizeof comment->body, file) != 1) {
+    if (read_string(comment->body, sizeof comment->body, stream) != 1) {
         return 0;
     }
 

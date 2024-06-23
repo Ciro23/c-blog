@@ -12,9 +12,7 @@ int display_choices() {
     printf("# 1. Create post             #\n");
     printf("# 2. Add comment             #\n");
     printf("# 3. View post               #\n");
-
-    // TODO: not implemented yet
-    // printf("4. List of all posts\n");
+    printf("# 4. List all posts          #\n");
     printf("##############################\n");
     
     int choice;
@@ -48,8 +46,8 @@ void call_selected_feature(const int feature) {
             printf("Enter post id: ");
             read_long(&id, stdin);
 
-            const Post post = get_post_from_id(id);
-            display_post(post);
+            Post post = get_post_from_id(id);
+            display_post(&post, 2);
 
             LinkedList* comments = read_comments(id);
             if (!is_empty(comments)) {
@@ -60,7 +58,13 @@ void call_selected_feature(const int feature) {
             break;
         }
 
+        case 4: {
+            const LinkedList* posts = get_all_posts();
+            display_posts(posts);
+            break;
+        }
+
         default:
-            printf("Unknown choice");
+            printf("Unknown choice\n");
     }
 }

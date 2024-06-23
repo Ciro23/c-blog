@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 long generate_random_number() {
     return rand() % 1000000;
@@ -33,4 +34,13 @@ int read_long(long *value, FILE* stream) {
     *value = atol(input);
 
     return result;
+}
+
+void remove_file_extension(char* filename) {
+    // Finds the last dot in the string.
+    char* dot = strrchr(filename, '.');
+    if (dot != NULL) {
+        // Terminates the string at the position of the dot.
+        *dot = '\0';
+    }
 }

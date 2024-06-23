@@ -6,6 +6,14 @@
 #include <limits.h>
 #include <stdio.h>
 
+void get_posts_path(char* posts_path) {
+    char home_path[PATH_MAX];
+    get_home_path(home_path);
+
+    strcat(posts_path, home_path);
+    strcat(posts_path, "/posts/");
+}
+
 /**
  * Given file_name (extension excluded), its full
  * path is saved inside post_path
@@ -15,12 +23,10 @@ void get_post_path(const long id, char* post_path) {
     sprintf(file_name, "%ld", id);
 
     const char* file_extension = ".txt";
-    const char* posts_path = "/posts/";
+
+    char posts_path[PATH_MAX] = {"\0"};
+    get_posts_path(posts_path);
     
-    char home_path[PATH_MAX];
-    get_home_path(home_path);
-    
-    strcat(post_path, home_path);
     strcat(post_path, posts_path);
     strcat(post_path, file_name);
     strcat(post_path, file_extension);
@@ -30,9 +36,9 @@ void get_post_path(const long id, char* post_path) {
  * Given a post id, the file path containing all its
  * comments are stored inside comment_path
  */
-void get_comments_path(const long id, char* comment_path) {
+void get_comments_path(const long post_id, char* comment_path) {
     char file_name[7];
-    sprintf(file_name, "%ld", id);
+    sprintf(file_name, "%ld", post_id);
 
     const char* file_extension = ".txt";
     const char* comments_path = "/comments/";
