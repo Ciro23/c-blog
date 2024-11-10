@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(c_blog C)
+project(c-blog C)
 
 set(CMAKE_C_STANDARD 11)
 
@@ -14,7 +14,7 @@ file(MAKE_DIRECTORY ~/.c-blog/posts)
 file(MAKE_DIRECTORY ~/.c-blog/comments)
 
 add_executable(
-        c_blog
+        c-blog
         c-blog/menu/menu.c
         c-blog/menu/menu.h
         c-blog/persistence/file/paths/paths.c

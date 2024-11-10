@@ -8,7 +8,7 @@ All the different features are available through a menu printed in the console, 
 
 ⚠️ In case of the following error:
 >Unable to open directory: No such file or directory  
-zsh: segmentation fault  ./.c_blog
+zsh: segmentation fault  ./.c-blog
 
 It's required to manually create the directories used to store posts and comments, within the user's home directory (e.g. "/Users/ciro23" on macOS or "/home/ciro23" on Linux):
 ```
