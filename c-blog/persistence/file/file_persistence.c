@@ -27,11 +27,11 @@ static void write_comment_information(FILE* file, Comment comment) {
 }
 
 /**
- * Folders needed for storing data are not
- * created by default.
+ * Parent folders needed for storing data are not
+ * always created by default.
  * TODO: automatically create required paths:
- * {home_directory}/c-blog/posts
- * and {home_directory}/c-blog/comments
+ * {home_directory}/.c-blog/posts
+ * and {home_directory}/.c-blog/comments
  */
 void store_post(const Post post) {
     char post_path[PATH_MAX] = {"\0"};

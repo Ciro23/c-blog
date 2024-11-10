@@ -10,8 +10,8 @@ include_directories(c-blog/persistence/file/paths)
 include_directories(c-blog/post)
 include_directories(c-blog/post/manager)
 
-file(MAKE_DIRECTORY ~/c-blog/posts)
-file(MAKE_DIRECTORY ~/c-blog/comments)
+file(MAKE_DIRECTORY ~/.c-blog/posts)
+file(MAKE_DIRECTORY ~/.c-blog/comments)
 
 add_executable(
         c_blog

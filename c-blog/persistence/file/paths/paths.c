@@ -55,8 +55,8 @@ void get_comments_path(const long post_id, char* comment_path) {
 /**
  * Returns the path which contains all data related
  * to this program.
- * Eg. /Users/ciro23/c-blog on mac,
- * /home/ciro23/c-blog on linux
+ * E.g. /Users/ciro23/c-blog on macOS,
+ * /home/ciro23/c-blog on Linux
  */
 void get_home_path(char* home_path) {
     const char *homedir;
@@ -66,5 +66,5 @@ void get_home_path(char* home_path) {
     }
     
     strcpy(home_path, homedir);
-    strcat(home_path, "/c-blog");
+    strcat(home_path, "/.c-blog");
 }
