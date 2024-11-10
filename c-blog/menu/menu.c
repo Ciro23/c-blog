@@ -30,7 +30,7 @@ int display_choices() {
 void call_selected_feature(const int feature) {
     switch (feature) {
         case 0:
-            printf("Bye!");
+            printf("Bye!\n");
             break;
 
         case 1:
